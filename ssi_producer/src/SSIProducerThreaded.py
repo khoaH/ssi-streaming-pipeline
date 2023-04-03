@@ -11,9 +11,9 @@ class SSIProducerThreaded:
             self.settings = json.load(f)
         self.ws_url = "wss://pricestream-iboard.ssi.com.vn/realtime"
         self.topic = self.settings['kafka_topic']
-        self.producer = KafkaProducer(bootstrap_servers=self.settings['kafka_server'])
+        self.producer = KafkaProducer(bootstrap_servers=self.settings['kafka_server'], api_version=(0, 10, 2))
         self.ws = None
-
+        print('Initializing ws')
         #get tickers id to subscribe to ws
         with open('symbols_dict.txt') as f:
             syms_dict = json.load(f)

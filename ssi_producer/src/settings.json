@@ -1,5 +1,5 @@
 {
-    "kafka_server" : "localhost:9093",
+    "kafka_server" : "kafka:29092",
     "kafka_topic" : "stock-data-stream",
     "tickers" : ["ACB", "HPG"]
 }
