@@ -1,0 +1,69 @@
+version: "3"
+
+services:
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.8
+    container_name: zookeeper
+    networks: 
+      - project-network
+    ports:
+      - "2181:2181"
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: docker.io/bitnami/kafka:3.4
+    container_name: kafka
+    networks: 
+      - project-network
+    ports:
+      - "9093:9093"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://localhost:9093
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+  
+  kafka-init:
+    image: docker.io/bitnami/kafka:3.4
+    container_name: kafka-init
+    networks: 
+      - project-network
+    depends_on:
+      - kafka
+    entrypoint: [ '/bin/sh', '-c' ]
+    volumes:
+      - ./kafka/topic-creator.sh:/topic-creator.sh
+    command: "/topic-creator.sh"
+
+  ssi-producer:
+    build: ./ssi_producer
+    container_name: ssi-producer
+    networks:
+      - project-network
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+    # volumes:
+    #   - ./ssi_producer:/app
+    ports:
+      - 443:443
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
+
+networks:
+  project-network:
+    driver: bridge
