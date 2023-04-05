@@ -1,0 +1,87 @@
+realtime_trades:
+- uuid
+- timestamp
+- session
+- symbol
+- price
+- traded_volume
+- diff_percentage
+- diff_value
+- total_volume
+- total_value
+
+#buy and sell orders, real time with calculated buy and sell volume depth
+orders:
+- uuid
+- session
+- timestamp
+- symbol
+- buy_1
+- volume_1
+- buy_2
+- volume_2
+- buy_3
+- volume_3
+- sell_1
+- volume_1
+- sell_2
+- volume_2
+- sell_3
+- volume_3
+- #buy_volume_depth_percentage
+- #sell_volume_depth_percentage
+
+#foreign investment real time
+foreign:
+- uuid
+- session
+- timestamp
+- symbol
+- room
+- buy
+- sell
+
+#real time market data, accumulated and aggregated trades data within the day
+market:
+- uuid
+- session
+- timestamp
+- symbol
+- high
+- low
+- avg
+- open
+- close
+
+#static data, no changes
+static:
+- uuid
+- day
+- symbol
+- ref
+- floor
+- ceiling
+
+#aggregate every 5s, after session start for 15s, rolling 10,
+aggregate:
+- uuid
+- ingest_time
+- symbol
+- session
+- rolling_price
+- rolling_diff_value
+- rolling_diff_percentage
+- rolling_buy_power
+- rolling_sell_power
+- rolling_volume
+- rolling_total
+
+#aggregate every 30s, after session start for 90s, rolling 60s
+aggregate_foreign:
+- uuid
+- ingest_time
+- symbol
+- session
+- rolling_buy
+- rolling_sell
+- rolling_room
