@@ -1,0 +1,4 @@
+spark-cassandra-connector-assembly_2.12-3.3.0.jar
+spark-streaming-kafka-0-10_2.12-3.3.0.jar
+cassandra-driver-core-3.11.3.jar
+spark-sql-kafka-0-10_2.13-3.3.0.jar
