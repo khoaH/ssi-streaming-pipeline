@@ -4,7 +4,13 @@ from pyspark.sql.types import StructType, StructField, StringType, DoubleType, I
 import pyspark
 
 # Create SparkSession
-spark = SparkSession.builder.appName("testRead").getOrCreate()
+spark = SparkSession\
+    .builder \
+    .appName("ssi-processing") \
+    .config("spark.cassandra.connection.host","cassandra:9042") \
+    .config("spark.cassandra.auth.username", "cassandra") \
+    .config("spark.cassandra.auth.password", "cassandra") \
+    .getOrCreate()
 
 #read kafka stream
 df = spark \
@@ -67,6 +73,8 @@ query = result.writeStream \
     .format("console") \
     .start()
 
+result = result.filter("symbol is NOT NULL")
+
 cleansed = result.filter("session is NOT NULL")
 
 filtered = cleansed.filter("price is NOT NULL")
@@ -112,8 +120,8 @@ orders = filtered.select(
     "sell_volume_2",
     "sell_price_3",
     "sell_volume_3",
-    (col("buy_volume_1") + col("buy_volume_2") + col("buy_volume_3") / (col("buy_volume_1") + col("buy_volume_2") + col("buy_volume_3") + col("sell_volume_1") + col("sell_volume_2") + col("sell_volume_3"))*100).alias("buy_volume_depth_percentage"),
-    (col("sell_volume_1") + col("sell_volume_2") + col("sell_volume_3") / (col("buy_volume_1") + col("buy_volume_2") + col("buy_volume_3") + col("sell_volume_1") + col("sell_volume_2") + col("sell_volume_3"))*100).alias("sell_volume_depth_percentage"),
+    ((col("buy_volume_1") + col("buy_volume_2") + col("buy_volume_3")) / (col("buy_volume_1") + col("buy_volume_2") + col("buy_volume_3") + col("sell_volume_1") + col("sell_volume_2") + col("sell_volume_3"))*100).alias("buy_volume_depth_percentage"),
+    ((col("sell_volume_1") + col("sell_volume_2") + col("sell_volume_3")) / (col("buy_volume_1") + col("buy_volume_2") + col("buy_volume_3") + col("sell_volume_1") + col("sell_volume_2") + col("sell_volume_3"))*100).alias("sell_volume_depth_percentage"),
 )
 
 def foreach_orders_batch_function(df, epoch_id):

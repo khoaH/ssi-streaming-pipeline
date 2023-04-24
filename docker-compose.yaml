@@ -109,8 +109,8 @@ services:
       - "CASSANDRA_HOST=cassandra"
       - "CASSANDRA_PASSWORD=cassandra"
     restart: always
-    volumes:
-      - ./cassandra/cassandra_data:/var/lib/cassandra
+    # volumes:
+    #   - ./cassandra/cassandra_data:/var/lib/cassandra
     healthcheck:
       test: ["CMD", "cqlsh", "-u cassandra", "-p cassandra" ,"-e describe keyspaces"]
       interval: 15s
@@ -129,6 +129,25 @@ services:
       - ./cassandra/db_create.cql:/schema.cql
     command: /bin/bash -c "echo loading cassandra keyspace && cqlsh cassandra -u cassandra -p cassandra -f /schema.cql"
   
+  spark-process:
+    build: ./spark-process
+    container_name: spark-process
+    ports:
+      - "8002:8002"
+      - "4040:4040"
+    environment:
+      - SPARK_PUBLIC_DNS=localhost
+    depends_on:
+      - spark-master
+      - spark-worker-1
+      - spark-worker-2
+      - cassandra
+      - cassandra-load-keyspace
+      - kafka
+      - kafka-init
+    networks:
+      - project-network
+
   grafana:
     image: grafana/grafana-oss:latest
     networks:
