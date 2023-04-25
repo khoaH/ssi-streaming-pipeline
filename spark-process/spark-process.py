@@ -27,12 +27,14 @@ schema = StructType([
 
 data = df.selectExpr('CAST(value as STRING)').select(from_json("value", schema).alias('json')).select('json.*')
 
+#process incoming message
 split_cols = data.select(col('timestamp'),expr('SPLIT(message, "[|]") as columns'))
 
+#rename columns and set their types
 result = split_cols.selectExpr(
     "uuid() as uuid",
     "from_unixtime(timestamp) as trade_timestamp",
-    # "cast(columns[0] as string) as ssi_id", #Reconsidering since it need to be process from an external dictionary to get the symbol. The Foreign trades don't include symbol
+    # "cast(columns[0] as string) as ssi_id", #Need to be process from an external dictionary to get the symbol. The Foreign trades don't include symbol 
     "cast(columns[1] as string) as symbol",
     "cast(columns[2] as double) as buy_price_1", #Gia_mua_1
     "cast(columns[3] as integer) as buy_volume_1", #KL_mua_1
@@ -67,18 +69,14 @@ result = split_cols.selectExpr(
 )
 
 
-
-query = result.writeStream \
-    .outputMode("append") \
-    .format("console") \
-    .start()
-
+#filter message that has no symbol, session or price, this include the foreign trading data message.
 result = result.filter("symbol is NOT NULL")
 
 cleansed = result.filter("session is NOT NULL")
 
 filtered = cleansed.filter("price is NOT NULL")
 
+#trades table
 trades = filtered.select(
     "uuid",
     "session",
@@ -92,6 +90,7 @@ trades = filtered.select(
     "total_value"
 )
 
+# make a batch function to write to cassandra
 def foreach_batch_function(df, epoch_id):
     df.write\
     .format("org.apache.spark.sql.cassandra")\
@@ -103,6 +102,7 @@ def foreach_batch_function(df, epoch_id):
 trades.writeStream\
     .foreachBatch(foreach_batch_function).start()
 
+#orders table
 orders = filtered.select(
     "uuid",
     "trade_timestamp",
@@ -158,6 +158,7 @@ orders.writeStream\
 # foreign.writeStream\
 #     .foreachBatch(foreach_foreign_batch_function).start()
 
+#market table
 market = filtered.select(
     "uuid",
     "session",

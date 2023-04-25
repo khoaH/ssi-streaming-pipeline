@@ -1,0 +1,1052 @@
+{
+    "__inputs": [
+      {
+        "name": "DS_APACHE_CASSANDRA",
+        "label": "Apache Cassandra",
+        "description": "",
+        "type": "datasource",
+        "pluginId": "hadesarchitect-cassandra-datasource",
+        "pluginName": "Apache Cassandra"
+      }
+    ],
+    "__elements": {},
+    "__requires": [
+      {
+        "type": "panel",
+        "id": "bargauge",
+        "name": "Bar gauge",
+        "version": ""
+      },
+      {
+        "type": "panel",
+        "id": "gauge",
+        "name": "Gauge",
+        "version": ""
+      },
+      {
+        "type": "grafana",
+        "id": "grafana",
+        "name": "Grafana",
+        "version": "9.4.7"
+      },
+      {
+        "type": "panel",
+        "id": "grafana-clock-panel",
+        "name": "Clock",
+        "version": "2.1.3"
+      },
+      {
+        "type": "datasource",
+        "id": "hadesarchitect-cassandra-datasource",
+        "name": "Apache Cassandra",
+        "version": "2.2.1"
+      },
+      {
+        "type": "panel",
+        "id": "stat",
+        "name": "Stat",
+        "version": ""
+      },
+      {
+        "type": "panel",
+        "id": "timeseries",
+        "name": "Time series",
+        "version": ""
+      }
+    ],
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": null,
+    "links": [],
+    "liveNow": true,
+    "panels": [
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "H8joYFVGz"
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 6,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "bgColor": "",
+          "clockType": "24 hour",
+          "countdownSettings": {
+            "endCountdownTime": "2023-04-21T19:10:50+07:00",
+            "endText": "00:00:00"
+          },
+          "countupSettings": {
+            "beginCountupTime": "2023-04-21T19:10:50+07:00",
+            "beginText": "00:00:00"
+          },
+          "dateSettings": {
+            "dateFormat": "DD-MM-YYYY",
+            "fontSize": "20px",
+            "fontWeight": "normal",
+            "locale": "",
+            "showDate": true
+          },
+          "mode": "time",
+          "refresh": "sec",
+          "timeSettings": {
+            "fontSize": "64px",
+            "fontWeight": "bold"
+          },
+          "timezone": "",
+          "timezoneSettings": {
+            "fontSize": "12px",
+            "fontWeight": "normal",
+            "showTimezone": false,
+            "zoneFormat": "offsetAbbv"
+          }
+        },
+        "pluginVersion": "2.1.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "queryType": "query",
+            "refId": "A"
+          }
+        ],
+        "transparent": true,
+        "type": "grafana-clock-panel"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "H8joYFVGz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "B"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "%"
+                },
+                {
+                  "id": "thresholds",
+                  "value": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "red",
+                        "value": null
+                      },
+                      {
+                        "color": "green",
+                        "value": 0.0001
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "color"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "C"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "+/-"
+                },
+                {
+                  "id": "color"
+                },
+                {
+                  "id": "thresholds",
+                  "value": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "red",
+                        "value": null
+                      },
+                      {
+                        "color": "green",
+                        "value": 0.00001
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 18,
+          "x": 6,
+          "y": 0
+        },
+        "id": 14,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "select symbol, cast(price as double), trade_timestamp from trades where symbol='HPG';"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "select symbol, cast(diff_percentage as double), trade_timestamp from trades where symbol='HPG';"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "select symbol, cast(diff_value as double), trade_timestamp from trades where symbol='HPG';"
+          }
+        ],
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "H8joYFVGz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisGridShow": true,
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "opacity",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "A"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Price"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 5
+        },
+        "id": 4,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "select symbol, cast(price as double), trade_timestamp from trades where symbol='HPG'"
+          }
+        ],
+        "transparent": true,
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "H8joYFVGz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "yellow",
+              "mode": "fixed"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "opacity",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineStyle": {
+                "fill": "solid"
+              },
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "A"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Volume"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 5
+        },
+        "id": 6,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "select symbol, cast(total_volume as double), trade_timestamp from trades where symbol='HPG';"
+          }
+        ],
+        "transparent": true,
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "H8joYFVGz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "light-green",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 2,
+          "x": 0,
+          "y": 13
+        },
+        "id": 11,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "select symbol, buy_price_1, trade_timestamp from orders where symbol='HPG';"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "select symbol, buy_price_2, trade_timestamp from orders where symbol='HPG';"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "select symbol, buy_price_3, trade_timestamp from orders where symbol='HPG';"
+          }
+        ],
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "H8joYFVGz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "green",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "A"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "B"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "2"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "C"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "3"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 8,
+          "x": 2,
+          "y": 13
+        },
+        "id": 8,
+        "options": {
+          "displayMode": "gradient",
+          "minVizHeight": 10,
+          "minVizWidth": 0,
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "select symbol, cast(buy_volume_1 as double), trade_timestamp from orders where symbol='HPG';"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "select symbol, cast(buy_volume_2 as double), trade_timestamp from orders where symbol='HPG';"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "select symbol, cast(buy_volume_3 as double), trade_timestamp from orders where symbol='HPG';"
+          }
+        ],
+        "transparent": true,
+        "type": "bargauge"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "H8joYFVGz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "from": 0,
+                  "result": {
+                    "color": "red",
+                    "index": 0,
+                    "text": "Bear"
+                  },
+                  "to": 50
+                },
+                "type": "range"
+              },
+              {
+                "options": {
+                  "from": 50,
+                  "result": {
+                    "color": "green",
+                    "index": 1,
+                    "text": "Bull"
+                  },
+                  "to": 100
+                },
+                "type": "range"
+              }
+            ],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 50
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 4,
+          "x": 10,
+          "y": 13
+        },
+        "id": 16,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "select symbol, cast(buy_volume_depth_percentage as double), trade_timestamp from orders where symbol='HPG';"
+          }
+        ],
+        "transparent": true,
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "H8joYFVGz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "red",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "A"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "B"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "2"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "C"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "3"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 8,
+          "x": 14,
+          "y": 13
+        },
+        "id": 9,
+        "options": {
+          "displayMode": "gradient",
+          "minVizHeight": 10,
+          "minVizWidth": 0,
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "select symbol, cast(sell_volume_1 as double), trade_timestamp from orders where symbol='HPG';"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "select symbol, cast(sell_volume_2 as double), trade_timestamp from orders where symbol='HPG';"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "select symbol, cast(sell_volume_3 as double), trade_timestamp from orders where symbol='HPG';"
+          }
+        ],
+        "transparent": true,
+        "type": "bargauge"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "H8joYFVGz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "light-red",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 2,
+          "x": 22,
+          "y": 13
+        },
+        "id": 12,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "select symbol, sell_price_1, trade_timestamp from orders where symbol='HPG';"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "select symbol, sell_price_2, trade_timestamp from orders where symbol='HPG';"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "H8joYFVGz"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "select symbol, sell_price_3, trade_timestamp from orders where symbol='HPG';"
+          }
+        ],
+        "type": "stat"
+      }
+    ],
+    "refresh": "",
+    "revision": 1,
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-30m",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "ssi",
+    "uid": "UbTkkBE4k",
+    "version": 1,
+    "weekStart": ""
+  }

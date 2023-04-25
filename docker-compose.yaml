@@ -151,9 +151,13 @@ services:
   grafana:
     image: grafana/grafana-oss:latest
     networks:
-    - project-network
+      - project-network
     ports:
-    - "3000:3000"
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
     environment:
       - "GF_INSTALL_PLUGINS=hadesarchitect-cassandra-datasource,grafana-clock-panel"
     depends_on:
