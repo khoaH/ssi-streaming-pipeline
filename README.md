@@ -98,5 +98,5 @@ That aside, here some aspect i could improve:
 * *CI/CD pipeline*: A CI/CD pipeline should be used to ensure the project free of deploying errors.
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/khoaH/ssi-streaming-pipeline/blob/8586fb94d7c07166156f6acd2c2f7e57a9ccd117/LICENSE/)
 
